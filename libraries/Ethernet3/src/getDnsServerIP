@@ -1,0 +1,17 @@
+Ethernet3.cpp:    _dhcp->setCustomHostname(_customHostname);
+Ethernet3.cpp:  int ret = _dhcp->beginWithDHCP(mac_address);
+Ethernet3.cpp:    w5500.setIPAddress(_dhcp->getLocalIp().raw_address());
+Ethernet3.cpp:    w5500.setGatewayIp(_dhcp->getGatewayIp().raw_address());
+Ethernet3.cpp:    w5500.setSubnetMask(_dhcp->getSubnetMask().raw_address());
+Ethernet3.cpp:    _dnsServerAddress = _dhcp->getDnsServerIp();
+Ethernet3.cpp:    _dhcp->setCustomHostname(_customHostname);
+Ethernet3.cpp:  int ret = _dhcp->beginWithDHCP(mac_address);
+Ethernet3.cpp:    w5500.setIPAddress(_dhcp->getLocalIp().raw_address());
+Ethernet3.cpp:    w5500.setGatewayIp(_dhcp->getGatewayIp().raw_address());
+Ethernet3.cpp:    w5500.setSubnetMask(_dhcp->getSubnetMask().raw_address());
+Ethernet3.cpp:    _dnsServerAddress = _dhcp->getDnsServerIp();
+Ethernet3.cpp:    rc = _dhcp->checkLease();
+Ethernet3.cpp:        w5500.setIPAddress(_dhcp->getLocalIp().raw_address());
+Ethernet3.cpp:        w5500.setGatewayIp(_dhcp->getGatewayIp().raw_address());
+Ethernet3.cpp:        w5500.setSubnetMask(_dhcp->getSubnetMask().raw_address());
+Ethernet3.cpp:        _dnsServerAddress = _dhcp->getDnsServerIp();
