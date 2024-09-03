@@ -17,6 +17,7 @@
  *                          Updated oled code
  *                          Updated enable serial console code
  *           2024-08-24 RJB Branched code to Add support for Adafruit Ethernet FeatherWing
+ *           2024-09-03 RJB Adding SHT sensor support
  *           
  * SEE https://learn.adafruit.com/adafruit-feather-m0-adalogger/
  * SEE https://www.microchip.com/wwwproducts/en/MCP73831 - Battery Charger
@@ -42,6 +43,7 @@
 #include <Adafruit_BMP280.h>
 #include <Adafruit_BMP3XX.h>
 #include <Adafruit_MCP9808.h>
+#include <Adafruit_SHT31.h>
 
 #include <RTClib.h>
 
@@ -105,7 +107,10 @@
 #define SSB_HTU21DF         0x200   // Set if Humidity & Temp Sensor missing
 #define SSB_SI1145          0x400   // Set if UV index & IR & Visible Sensor missing
 #define SSB_MCP_1           0x800   // Set if Precision I2C Temperature Sensor missing
-#define SSB_DS_1           0x1000   // Set if Dallas One WireSensor missing at startup
+#define SSB_MCP_2          0x1000   // Set if Precision I2C Temperature Sensor missing
+#define SSB_DS_1           0x2000   // Set if Dallas One WireSensor missing at startup
+#define SSB_SHT_1          0x4000   // Set if SHTX1 Sensor missing
+#define SSB_SHT_2          0x8000   // Set if SHTX2 Sensor missing
 
 
 unsigned int SystemStatusBits = SSB_PWRON; // Set bit 0 for initial value power on. Bit 0 is cleared after first obs
@@ -213,6 +218,7 @@ void setup()
   // Adafruit i2c Sensors
   bmx_initialize();
   mcp9808_initialize();
+  sht_initialize();
 }
 
 /*

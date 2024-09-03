@@ -45,6 +45,18 @@ byte BMX_2_type=BMX_TYPE_UNKNOWN;
 
 /*
  * ======================================================================================================================
+ *  SHTX - I2C - Temperature & Humidity sensor (SHT31)  - Note the SHT40, SHT45 use same i2c address
+ * ======================================================================================================================
+ */
+#define SHT_ADDRESS_1     0x44
+#define SHT_ADDRESS_2     0x45        // ADR pin set high, VDD
+Adafruit_SHT31 sht1;
+Adafruit_SHT31 sht2;
+bool SHT_1_exists = false;
+bool SHT_2_exists = false;
+
+/*
+ * ======================================================================================================================
  *  MCP9808 - I2C - Temperature sensor
  * 
  * I2C Address is:  0011,A2,A1,A0
@@ -306,6 +318,54 @@ void mcp9808_initialize() {
   else {
     MCP_1_exists = true;
     msgp = (char *) "MCP1 OK";
+  }
+  Output (msgp);
+
+  // 2nd MCP9808 Precision I2C Temperature Sensor (I2C ADDRESS = 0x19)
+  mcp2 = Adafruit_MCP9808();
+  if (!mcp2.begin(MCP_ADDRESS_2)) {
+    msgp = (char *) "MCP2 NF";
+    MCP_2_exists = false;
+    SystemStatusBits |= SSB_MCP_2;  // Turn On Bit
+  }
+  else {
+    MCP_2_exists = true;
+    msgp = (char *) "MCP2 OK";
+  }
+  Output (msgp);
+}
+
+/* 
+ *=======================================================================================================================
+ * sht_initialize() - SHT31 sensor initialize
+ *=======================================================================================================================
+ */
+void sht_initialize() {
+  Output("SHT:INIT");
+  
+  // 1st SHT31 I2C Temperature/Humidity Sensor (I2C ADDRESS = 0x44)
+  sht1 = Adafruit_SHT31();
+  if (!sht1.begin(SHT_ADDRESS_1)) {
+    msgp = (char *) "SHT1 NF";
+    SHT_1_exists = false;
+    SystemStatusBits |= SSB_SHT_1;  // Turn On Bit
+  }
+  else {
+    SHT_1_exists = true;
+    msgp = (char *) "SHT1 OK";
+  }
+  Output (msgp);
+
+  // 2nd SHT31 I2C Temperature/Humidity Sensor (I2C ADDRESS = 0x45)
+  sht2 = Adafruit_SHT31();
+  if (!sht2.begin(SHT_ADDRESS_2)) {
+    msgp = (char *) "SHT2 NF";
+    SHT_2_exists = false;
+    SystemStatusBits |= SSB_SHT_2;  // Turn On Bit
+  }
+  else {
+    SHT_2_exists = true;
+    msgp = (char *) "SHT2 OK";
   }
   Output (msgp);
 }

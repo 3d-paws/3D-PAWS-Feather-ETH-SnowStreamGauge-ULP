@@ -412,6 +412,49 @@ void OBS_Take() {
     obs.sensor[sidx].f_obs = t;
     obs.sensor[sidx++].inuse = true;
   }
+
+  if (SHT_1_exists) {                                                                               
+    float t = 0.0;
+    float h = 0.0;
+
+    // SHT1 Temperature
+    strcpy (obs.sensor[sidx].id, "st1");
+    obs.sensor[sidx].type = F_OBS;
+    t = sht1.readTemperature();
+    t = (isnan(t) || (t < QC_MIN_T)  || (t > QC_MAX_T))  ? QC_ERR_T  : t;
+    obs.sensor[sidx].f_obs = t;
+    obs.sensor[sidx++].inuse = true;
+    
+    // SHT1 Humidity   
+    strcpy (obs.sensor[sidx].id, "sh1");
+    obs.sensor[sidx].type = F_OBS;
+    h = sht1.readHumidity();
+    h = (isnan(h) || (h < QC_MIN_RH) || (h > QC_MAX_RH)) ? QC_ERR_RH : h;
+    obs.sensor[sidx].f_obs = h;
+    obs.sensor[sidx++].inuse = true;
+  }
+
+  if (SHT_2_exists) {
+    float t = 0.0;
+    float h = 0.0;
+
+    // SHT2 Temperature
+    strcpy (obs.sensor[sidx].id, "st2");
+    obs.sensor[sidx].type = F_OBS;
+    t = sht2.readTemperature();
+    t = (isnan(t) || (t < QC_MIN_T)  || (t > QC_MAX_T))  ? QC_ERR_T  : t;
+    obs.sensor[sidx].f_obs = t;
+    obs.sensor[sidx++].inuse = true;
+    
+    // SHT2 Humidity   
+    strcpy (obs.sensor[sidx].id, "sh2");
+    obs.sensor[sidx].type = F_OBS;
+    h = sht2.readHumidity();
+    h = (isnan(h) || (h < QC_MIN_RH) || (h > QC_MAX_RH)) ? QC_ERR_RH : h;
+    obs.sensor[sidx].f_obs = h;
+    obs.sensor[sidx++].inuse = true;
+  }
+  
   Output("OBS_TAKE(DONE)");
 }
 
