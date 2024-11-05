@@ -18,6 +18,9 @@
  *                          Updated enable serial console code
  *           2024-08-24 RJB Branched code to Add support for Adafruit Ethernet FeatherWing
  *           2024-09-03 RJB Adding SHT sensor support
+ *           2024-11-05 RJB Discovered BMP390 first pressure reading is bad. Added read pressure to bmx_initialize()
+ *                          Bug fixes for 2nd BMP sensor in bmx_initialize() using first sensor data structure
+ *                          Now will only send humidity if bmx sensor supports it.
  *           
  * SEE https://learn.adafruit.com/adafruit-feather-m0-adalogger/
  * SEE https://www.microchip.com/wwwproducts/en/MCP73831 - Battery Charger
